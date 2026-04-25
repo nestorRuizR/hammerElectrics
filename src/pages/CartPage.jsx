@@ -33,7 +33,7 @@ export default function CartPage() {
       `${lines}\n\n` +
       `Envío: ${envio}\n` +
       `*Total: S/ ${finalTotal.toFixed(2)}*`
-    window.open(`https://wa.me/51999999999?text=${encodeURIComponent(msg)}`, '_blank')
+    window.open(`https://wa.me/51922350829?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
   return (
