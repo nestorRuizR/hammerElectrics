@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CATEGORIES } from '../../services/products'
-import { fetchProducts, deleteProduct } from '../../services/api'
+import { fetchProducts, deleteProduct, toggleProduct } from '../../services/api'
 import './AdminPage.css'
 
 export default function AdminPage() {
@@ -11,12 +11,23 @@ export default function AdminPage() {
 
   const load = () => {
     setLoading(true)
-    fetchProducts()
+    setError(null)
+    fetchProducts({ adminMode: true })
       .then(data => { setProducts(data); setLoading(false) })
       .catch(err  => { setError(err.message); setLoading(false) })
   }
 
   useEffect(load, [])
+
+  const handleToggle = async (product) => {
+    const next = !product.enabled
+    try {
+      await toggleProduct(product.id, next)
+      setProducts(ps => ps.map(p => p.id === product.id ? { ...p, enabled: next } : p))
+    } catch (err) {
+      alert('Error al cambiar estado: ' + err.message)
+    }
+  }
 
   const handleDelete = async (product) => {
     if (!window.confirm(`¿Eliminar "${product.name}"? Esta acción no se puede deshacer.`)) return
@@ -28,13 +39,19 @@ export default function AdminPage() {
     }
   }
 
+  const active   = products.filter(p => p.enabled).length
+  const inactive = products.length - active
+
   return (
     <div className="admin">
 
       <div className="admin__header">
         <div>
           <h1 className="admin__title">Panel de administración</h1>
-          <p className="admin__subtitle">{products.length} producto{products.length !== 1 ? 's' : ''} en el catálogo</p>
+          <p className="admin__subtitle">
+            {active} activo{active !== 1 ? 's' : ''}
+            {inactive > 0 && <span className="admin__subtitle-inactive"> · {inactive} inhabilitado{inactive !== 1 ? 's' : ''}</span>}
+          </p>
         </div>
         <Link to="/admin/nuevo" className="admin__new-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -68,7 +85,7 @@ export default function AdminPage() {
                 <th>Categoría</th>
                 <th>Precio</th>
                 <th>Stock</th>
-                <th>Destacado</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -76,7 +93,7 @@ export default function AdminPage() {
               {products.map(p => {
                 const cat = CATEGORIES.find(c => c.id === p.category)
                 return (
-                  <tr key={p.id}>
+                  <tr key={p.id} className={!p.enabled ? 'admin__row--disabled' : ''}>
                     <td>
                       <div className="admin__thumb">
                         {p.image
@@ -89,7 +106,10 @@ export default function AdminPage() {
                         }
                       </div>
                     </td>
-                    <td className="admin__name">{p.name}</td>
+                    <td className="admin__name">
+                      {p.name}
+                      {p.featured && <span className="admin__featured-dot" title="Destacado">⭐</span>}
+                    </td>
                     <td>
                       <span className="admin__cat-badge">{cat?.icon} {cat?.label}</span>
                     </td>
@@ -98,9 +118,9 @@ export default function AdminPage() {
                       <span className={`admin__stock ${p.stock <= 5 ? 'low' : ''}`}>{p.stock}</span>
                     </td>
                     <td>
-                      {p.featured
-                        ? <span className="admin__featured-badge">⭐ Sí</span>
-                        : <span className="admin__no-badge">—</span>
+                      {p.enabled
+                        ? <span className="admin__status admin__status--on">Activo</span>
+                        : <span className="admin__status admin__status--off">Inactivo</span>
                       }
                     </td>
                     <td>
@@ -112,6 +132,16 @@ export default function AdminPage() {
                           </svg>
                           Editar
                         </Link>
+                        <button
+                          className={`admin__toggle-btn ${p.enabled ? 'admin__toggle-btn--off' : 'admin__toggle-btn--on'}`}
+                          onClick={() => handleToggle(p)}
+                          title={p.enabled ? 'Inhabilitar producto' : 'Habilitar producto'}
+                        >
+                          {p.enabled
+                            ? <><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> Inhabilitar</>
+                            : <><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg> Habilitar</>
+                          }
+                        </button>
                         <button className="admin__delete-btn" onClick={() => handleDelete(p)}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <polyline points="3 6 5 6 21 6"/>

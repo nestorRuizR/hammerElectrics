@@ -11,9 +11,11 @@ const BUCKET = 'product-images'
 
 export async function fetchProducts(filters = {}) {
   let q = supabase.from('products').select('*').order('id')
-  if (filters.category) q = q.eq('category', filters.category)
-  if (filters.search)   q = q.ilike('name', `%${filters.search}%`)
-  if (filters.featured) q = q.eq('featured', true)
+  // Las rutas públicas solo ven productos habilitados
+  if (!filters.adminMode) q = q.eq('enabled', true)
+  if (filters.category)   q = q.eq('category', filters.category)
+  if (filters.search)     q = q.ilike('name', `%${filters.search}%`)
+  if (filters.featured)   q = q.eq('featured', true)
   const { data, error } = await q
   if (error) throw new Error(error.message)
   return data
@@ -31,7 +33,7 @@ export async function createProduct({ name, price, category, stock, featured, de
   if (imageFile) image = await uploadImage(imageFile)
   const { data, error } = await supabase
     .from('products')
-    .insert({ name, price: parseFloat(price), category, stock: parseInt(stock) || 0, featured, description: description || '', image })
+    .insert({ name, price: parseFloat(price), category, stock: parseInt(stock) || 0, featured, description: description || '', image, enabled: true })
     .select().single()
   if (error) { if (image) await removeImage(image); throw new Error(error.message) }
   return data
@@ -46,6 +48,15 @@ export async function updateProduct(id, { name, price, category, stock, featured
   const { data, error } = await supabase
     .from('products')
     .update({ name, price: parseFloat(price), category, stock: parseInt(stock) || 0, featured, description: description || '', image })
+    .eq('id', id).select().single()
+  if (error) throw new Error(error.message)
+  return data
+}
+
+export async function toggleProduct(id, enabled) {
+  const { data, error } = await supabase
+    .from('products')
+    .update({ enabled })
     .eq('id', id).select().single()
   if (error) throw new Error(error.message)
   return data
