@@ -1,0 +1,346 @@
+/* ============================================
+   PRODUCT FORM PAGE — Hammer Electrics
+   ============================================ */
+
+.pform {
+  padding-bottom: 60px;
+}
+
+/* --- Loading --- */
+.pform__loading {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pform__loading-bar {
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e9eaf0 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: pformShimmer 1.2s infinite;
+}
+
+@keyframes pformShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* --- Header --- */
+.pform__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.pform__back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  color: #6b7280;
+  padding: 6px 10px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pform__back:hover { background: #f3f4f6; color: #374151; }
+
+.pform__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1A237E;
+  letter-spacing: 0.3px;
+}
+
+/* --- Form --- */
+.pform__form {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 640px;
+}
+
+.pform__error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* --- Fields --- */
+.pform__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.pform__field--half { max-width: 200px; }
+
+.pform__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.pform__label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.pform__req { color: #dc2626; }
+
+.pform__input,
+.pform__select,
+.pform__textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  color: #111827;
+  background: white;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+}
+
+.pform__input:focus,
+.pform__select:focus,
+.pform__textarea:focus {
+  border-color: #2196F3;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.1);
+}
+
+.pform__textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+.pform__counter {
+  font-size: 11px;
+  color: #9ca3af;
+  text-align: right;
+  margin-top: -2px;
+}
+
+/* --- Image upload --- */
+.pform__image-area {
+  position: relative;
+}
+
+.pform__image-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 140px;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pform__image-drop:hover {
+  border-color: #2196F3;
+  background: #f0f9ff;
+}
+
+.pform__image-drop span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.pform__image-hint {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #9ca3af !important;
+}
+
+.pform__image-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pform__image-preview {
+  position: relative;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid #e5e7eb;
+}
+
+.pform__image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f3f4f6;
+  padding: 8px;
+}
+
+.pform__image-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  border-radius: 50%;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.pform__image-remove:hover { background: rgba(0,0,0,0.75); }
+
+.pform__image-change {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2196F3;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.pform__image-change:hover { color: #1565C0; }
+
+/* --- Toggle destacado --- */
+.pform__toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.pform__toggle:hover { border-color: #2196F3; }
+
+.pform__toggle-input { display: none; }
+
+.pform__toggle-track {
+  width: 44px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 12px;
+  flex-shrink: 0;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.pform__toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.pform__toggle-input:checked ~ .pform__toggle-track {
+  background: #1A237E;
+}
+
+.pform__toggle-input:checked ~ .pform__toggle-track::after {
+  transform: translateX(20px);
+}
+
+.pform__toggle-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.pform__toggle-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* --- Footer actions --- */
+.pform__footer {
+  display: flex;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.pform__cancel {
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  color: #374151;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.pform__cancel:hover { background: #f3f4f6; border-color: #d1d5db; }
+
+.pform__submit {
+  flex: 2;
+  height: 48px;
+  background: #1A237E;
+  color: white;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.pform__submit:hover:not(:disabled)  { background: #283593; }
+.pform__submit:active                { transform: scale(0.98); }
+.pform__submit:disabled              { background: #9ca3af; cursor: not-allowed; }
+
+/* --- Desktop --- */
+@media (min-width: 768px) {
+  .pform__header { padding: 16px 32px; }
+  .pform__form   { padding: 28px 32px; }
+  .pform__image-drop  { height: 160px; }
+  .pform__image-preview { height: 220px; }
+}

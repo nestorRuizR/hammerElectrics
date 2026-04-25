@@ -1,0 +1,188 @@
+/* ============================================
+   FOOTER — Hammer Electrics
+   ============================================ */
+
+.footer {
+  background: #1A237E;
+  color: rgba(255,255,255,0.75);
+  margin-top: 32px;
+}
+
+/* --- Grid interior --- */
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 36px 16px 28px;
+}
+
+/* --- Marca --- */
+.footer__logo {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 2px;
+  margin-bottom: 12px;
+  text-decoration: none;
+}
+
+.footer__logo-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.footer__logo-sub {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #FFC107;
+  letter-spacing: 3.5px;
+}
+
+.footer__tagline {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.6);
+  max-width: 280px;
+  margin-bottom: 16px;
+}
+
+/* --- Redes sociales --- */
+.footer__socials {
+  display: flex;
+  gap: 10px;
+}
+
+.footer__social-btn {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.7);
+  transition: background 0.15s, color 0.15s;
+}
+
+.footer__social-btn:hover {
+  background: #FFC107;
+  color: #1A237E;
+}
+
+/* --- Columnas de links --- */
+.footer__col-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* Categorías */
+.footer__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__link {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+
+.footer__link:hover { color: #FFC107; }
+
+/* Info de contacto */
+.footer__info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.footer__info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.4;
+}
+
+.footer__info-item svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #FFC107;
+}
+
+/* Botón WhatsApp */
+.footer__wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25D366;
+  color: white;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+}
+
+.footer__wa-btn:hover { background: #20b858; }
+
+/* --- Bottom bar --- */
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer__copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+}
+
+.footer__admin-link {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.15s;
+}
+
+.footer__admin-link:hover { color: rgba(255,255,255,0.5); }
+
+/* --- Desktop: 3 columnas --- */
+@media (min-width: 768px) {
+  .footer__inner {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+    padding: 48px 40px 36px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer__bottom {
+    padding: 14px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}

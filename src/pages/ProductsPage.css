@@ -1,0 +1,258 @@
+/* ============================================
+   PRODUCTS PAGE — Hammer Electrics
+   ============================================ */
+
+.products {
+  padding-bottom: 80px;
+}
+
+/* --- Barra de búsqueda --- */
+.products__search-bar {
+  padding: 12px 16px 0;
+}
+
+.products__search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.products__search-form:focus-within {
+  border-color: #2196F3;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.1);
+}
+
+.products__search-icon {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.products__search-input {
+  flex: 1;
+  height: 44px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  color: #111827;
+  background: transparent;
+}
+
+.products__search-input::placeholder {
+  color: #9ca3af;
+}
+
+.products__search-clear {
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.products__search-clear:hover { color: #374151; }
+
+/* --- Chips de filtro --- */
+.products__filters {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.products__filters::-webkit-scrollbar { display: none; }
+
+.products__chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  color: #374151;
+  white-space: nowrap;
+  background: white;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.products__chip:hover {
+  border-color: #2196F3;
+  color: #2196F3;
+}
+
+.products__chip.active {
+  background: #1A237E;
+  border-color: #1A237E;
+  color: white;
+}
+
+/* --- Info resultados --- */
+.products__results-info {
+  font-size: 13px;
+  color: #6b7280;
+  padding: 0 16px 4px;
+}
+
+/* --- Grid de productos --- */
+.products__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 16px 8px;
+}
+
+/* --- Tarjeta de producto --- */
+.products__card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.15s, transform 0.1s;
+}
+
+.products__card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.products__card-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background: #f3f4f6;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.products__card-img:hover { background: #e9eaf0; }
+
+.products__card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.products__card-info {
+  padding: 10px;
+}
+
+.products__card-cat {
+  font-size: 10px;
+  font-weight: 700;
+  color: #2196F3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.products__card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.15s;
+}
+
+.products__card-name:hover { color: #1A237E; }
+
+.products__card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.products__card-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1A237E;
+}
+
+.products__card-add {
+  width: 30px;
+  height: 30px;
+  background: #1A237E;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.products__card-add:hover  { background: #283593; }
+.products__card-add:active { transform: scale(0.93); }
+
+/* --- Skeleton de carga --- */
+.products__skeleton {
+  height: 190px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e9eaf0 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 14px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* --- Estado vacío --- */
+.products__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.products__empty p {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.products__empty button {
+  background: #1A237E;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+}
+
+.products__empty button:hover { background: #283593; }
+
+/* --- Desktop --- */
+@media (min-width: 768px) {
+  .products { padding-bottom: 0; }
+  .products__search-bar { padding: 20px 40px 0; }
+  .products__filters    { padding: 14px 40px; }
+  .products__results-info { padding: 0 40px 4px; }
+  .products__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 0 40px 8px;
+  }
+  .products__card-img { height: 120px; }
+}

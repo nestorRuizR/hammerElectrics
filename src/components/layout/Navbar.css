@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* ============================================
+   VARIABLES — Hammer Electrics
+   ============================================ */
+:root {
+  --he-blue:    #2196F3;
+  --he-blue-dk: #1565C0;
+  --he-yellow:  #FFC107;
+  --he-navy:    #1A237E;
+  --he-navy-lt: #283593;
+  --he-white:   #FFFFFF;
+  --he-bg:      #F4F6FB;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--he-navy);
+  box-shadow: 0 2px 16px rgba(26, 35, 126, 0.35);
+}
+
+/* --- Barra principal --- */
+.navbar__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+
+/* Logo */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.navbar__logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: white;
+  padding: 4px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
+
+.navbar__logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 1px;
+}
+
+.navbar__logo-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--he-white);
+  letter-spacing: 1.5px;
+}
+
+.navbar__logo-sub {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--he-yellow);
+  letter-spacing: 2.5px;
+}
+
+/* Iconos acción */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.navbar__icon-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.navbar__icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--he-white);
+}
+
+.navbar__badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  min-width: 17px;
+  height: 17px;
+  background: var(--he-yellow);
+  color: var(--he-navy);
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid var(--he-navy);
+}
+
+/* --- Búsqueda --- */
+.navbar__search {
+  padding: 0 16px 12px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.navbar__search-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.navbar__search-input {
+  flex: 1;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 0 14px;
+  color: white;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.navbar__search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.navbar__search-input:focus {
+  border-color: var(--he-yellow);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.navbar__search-btn {
+  height: 40px;
+  padding: 0 16px;
+  background: var(--he-yellow);
+  color: var(--he-navy);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.navbar__search-btn:hover {
+  background: #FFB300;
+}
+
+.navbar__search-cancel {
+  width: 36px;
+  height: 36px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.navbar__search-cancel:hover { color: white; }
+
+/* --- Franja azul decorativa --- */
+.navbar::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--he-blue) 0%, var(--he-yellow) 50%, var(--he-blue) 100%);
+}
+
+/* --- Nav inferior mobile --- */
+.navbar__bottom {
+  display: flex;
+  background: var(--he-navy-lt);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 6px 0 env(safe-area-inset-bottom, 6px);
+}
+
+.navbar__nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 4px 7px;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.15s;
+}
+
+.navbar__nav-item:hover,
+.navbar__nav-item.active {
+  color: var(--he-yellow);
+}
+
+/* Botón carrito destacado */
+.navbar__nav-cart-item {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.navbar__nav-cart-item:hover,
+.navbar__nav-cart-item.active {
+  color: var(--he-yellow);
+}
+
+.navbar__nav-cart-bubble {
+  position: relative;
+  width: 48px;
+  height: 34px;
+  background: var(--he-blue);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(33, 150, 243, 0.5);
+}
+
+.navbar__nav-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  background: var(--he-yellow);
+  color: var(--he-navy);
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* Desktop: ocultar nav inferior */
+@media (min-width: 768px) {
+  .navbar__bottom { display: none; }
+  .navbar__main   { padding: 12px 28px; }
+  .navbar__logo-name { font-size: 20px; }
+  .navbar__logo-sub  { font-size: 12px; }
+  .navbar__logo-img  { width: 48px; height: 48px; }
+}
