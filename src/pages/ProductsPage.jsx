@@ -3,7 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { CATEGORIES } from '../services/products'
 import { useProducts } from '../hooks/useProducts'
 import { useCart } from '../context/CartContext'
-import { API_BASE } from '../services/api'
+import { useToast } from '../context/ToastContext'
 import './ProductsPage.css'
 
 export default function ProductsPage() {
@@ -22,6 +22,7 @@ export default function ProductsPage() {
 
   const { products, loading } = useProducts(filters)
   const { addItem } = useCart()
+  const { showToast } = useToast()
 
   const setCategory = (cat) => {
     const next = new URLSearchParams(searchParams)
@@ -118,7 +119,7 @@ export default function ProductsPage() {
             <div key={product.id} className="products__card">
               <Link to={`/productos/${product.id}`} className="products__card-img">
                 {product.image
-                  ? <img src={`${API_BASE}${product.image}`} alt={product.name} />
+                  ? <img src={product.image} alt={product.name} />
                   : <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5">
                       <rect x="3" y="3" width="18" height="18" rx="2"/>
                       <circle cx="8.5" cy="8.5" r="1.5"/>
@@ -137,7 +138,7 @@ export default function ProductsPage() {
                   <span className="products__card-price">S/ {product.price.toFixed(2)}</span>
                   <button
                     className="products__card-add"
-                    onClick={() => addItem(product)}
+                    onClick={() => { addItem(product); showToast(product.name) }}
                     aria-label="Agregar al carrito"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

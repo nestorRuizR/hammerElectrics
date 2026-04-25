@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { CATEGORIES } from '../services/products'
-import { fetchProductById, API_BASE } from '../services/api'
+import { fetchProductById } from '../services/api'
 import { useCart } from '../context/CartContext'
+import { useToast } from '../context/ToastContext'
 import './ProductDetailPage.css'
 
 export default function ProductDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { addItem, items } = useCart()
+  const { showToast } = useToast()
 
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -53,6 +55,7 @@ export default function ProductDetailPage() {
 
   const handleAdd = () => {
     for (let i = 0; i < qty; i++) addItem(product)
+    showToast(product.name)
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
   }
@@ -78,7 +81,7 @@ export default function ProductDetailPage() {
       {/* Imagen */}
       <div className="detail__image">
         {product.image
-          ? <img src={`${API_BASE}${product.image}`} alt={product.name} />
+          ? <img src={product.image} alt={product.name} />
           : <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#c9cdd4" strokeWidth="1.2">
               <rect x="3" y="3" width="18" height="18" rx="2"/>
               <circle cx="8.5" cy="8.5" r="1.5"/>

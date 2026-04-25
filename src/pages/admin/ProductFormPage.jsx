@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { CATEGORIES } from '../../services/products'
-import { fetchProductById, createProduct, updateProduct, API_BASE } from '../../services/api'
+import { fetchProductById, createProduct, updateProduct } from '../../services/api'
 import './ProductFormPage.css'
 
-const EMPTY_FORM = { name: '', price: '', category: 'herramientas', stock: '', featured: false, description: '' }
+const EMPTY_FORM = { name: '', price: '', category: 'tableros', stock: '', featured: false, description: '' }
 
 export default function ProductFormPage() {
   const { id }   = useParams()
@@ -69,18 +69,19 @@ export default function ProductFormPage() {
     setError(null)
     setSaving(true)
 
-    const fd = new FormData()
-    fd.append('name',        form.name.trim())
-    fd.append('price',       form.price)
-    fd.append('category',    form.category)
-    fd.append('stock',       form.stock)
-    fd.append('featured',    form.featured)
-    fd.append('description', form.description)
-    if (imageFile) fd.append('image', imageFile)
+    const payload = {
+      name:        form.name.trim(),
+      price:       form.price,
+      category:    form.category,
+      stock:       form.stock,
+      featured:    form.featured,
+      description: form.description,
+      imageFile:   imageFile || null,
+    }
 
     try {
-      if (isEdit) await updateProduct(id, fd)
-      else        await createProduct(fd)
+      if (isEdit) await updateProduct(id, { ...payload, existingImage: existing })
+      else        await createProduct(payload)
       navigate('/admin')
     } catch (err) {
       setError(err.message)
@@ -88,7 +89,7 @@ export default function ProductFormPage() {
     }
   }
 
-  const displayImage = preview || (existing ? `${API_BASE}${existing}` : null)
+  const displayImage = preview || existing || null
 
   if (loading) {
     return (

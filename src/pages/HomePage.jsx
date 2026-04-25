@@ -2,13 +2,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { CATEGORIES } from '../services/products'
 import { useProducts } from '../hooks/useProducts'
-import { API_BASE } from '../services/api'
+import { useToast } from '../context/ToastContext'
 import './HomePage.css'
 
 const FEATURED_FILTER = { featured: true }
 
 export default function HomePage() {
   const { addItem } = useCart()
+  const { showToast } = useToast()
   const navigate = useNavigate()
   const { products: featuredProducts, loading } = useProducts(FEATURED_FILTER)
 
@@ -18,9 +19,9 @@ export default function HomePage() {
       {/* BANNER HERO */}
       <section className="home__hero">
         <div className="home__hero-content">
-          <p className="home__hero-tag">⚡ Oferta del día</p>
-          <h1 className="home__hero-title">Todo para tu obra y hogar</h1>
-          <p className="home__hero-desc">Herramientas, materiales eléctricos y más — entrega rápida en Lima.</p>
+          <p className="home__hero-tag">⚡ Especialistas en tableros</p>
+          <h1 className="home__hero-title">Tableros y materiales eléctricos</h1>
+          <p className="home__hero-desc">Termomagnéticas, diferenciales, cables y más — distribución en Lima.</p>
           <button className="home__hero-btn" onClick={() => navigate('/productos')}>
             Ver catálogo completo
           </button>
@@ -35,7 +36,7 @@ export default function HomePage() {
       <div className="home__shipping">
         <div className="home__shipping-item">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          <span>Envío gratis desde S/ 150</span>
+          <span>Envío gratis desde S/ 200</span>
         </div>
         <div className="home__shipping-sep" />
         <div className="home__shipping-item">
@@ -78,7 +79,7 @@ export default function HomePage() {
               <div key={product.id} className="home__product-card">
                 <Link to={`/productos/${product.id}`} className="home__product-img">
                   {product.image
-                    ? <img src={`${API_BASE}${product.image}`} alt={product.name} />
+                    ? <img src={product.image} alt={product.name} />
                     : <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5">
                         <rect x="3" y="3" width="18" height="18" rx="2"/>
                         <circle cx="8.5" cy="8.5" r="1.5"/>
@@ -97,7 +98,7 @@ export default function HomePage() {
                     <span className="home__product-price">S/ {product.price.toFixed(2)}</span>
                     <button
                       className="home__product-add"
-                      onClick={() => addItem(product)}
+                      onClick={() => { addItem(product); showToast(product.name) }}
                       aria-label="Agregar al carrito"
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -116,10 +117,10 @@ export default function HomePage() {
       {/* BANNER CTA */}
       <section className="home__cta">
         <div className="home__cta-content">
-          <h3 className="home__cta-title">¿Necesitas asesoría?</h3>
-          <p className="home__cta-desc">Nuestro equipo te ayuda a elegir los mejores materiales para tu proyecto.</p>
-          <a href="https://wa.me/51999999999" className="home__cta-btn" target="_blank" rel="noreferrer">
-            Escribenos por WhatsApp
+          <h3 className="home__cta-title">¿Necesitas asesoría técnica?</h3>
+          <p className="home__cta-desc">Especialistas en tableros eléctricos, instalaciones y materiales para obras y proyectos en Lima.</p>
+          <a href="https://wa.me/51922350829" className="home__cta-btn" target="_blank" rel="noreferrer">
+            Escríbenos por WhatsApp
           </a>
         </div>
       </section>

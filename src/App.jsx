@@ -8,9 +8,11 @@ import AdminGuard from './components/admin/AdminGuard'
 import AdminPage from './pages/admin/AdminPage'
 import ProductFormPage from './pages/admin/ProductFormPage'
 import { CartProvider } from './context/CartContext'
+import { ToastProvider } from './context/ToastContext'
 
 function App() {
   return (
+    <ToastProvider>
     <CartProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -27,6 +29,7 @@ function App() {
         </Route>
       </Routes>
     </CartProvider>
+    </ToastProvider>
   )
 }
 

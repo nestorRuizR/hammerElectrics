@@ -20,8 +20,21 @@ export default function CartPage() {
     )
   }
 
-  const shipping    = total >= 150 ? 0 : 15
-  const finalTotal  = total + shipping
+  const shipping   = total >= 150 ? 0 : 15
+  const finalTotal = total + shipping
+
+  const handleCheckout = () => {
+    const lines = items
+      .map(i => `• ${i.name} x${i.qty}  →  S/ ${(i.price * i.qty).toFixed(2)}`)
+      .join('\n')
+    const envio = shipping === 0 ? 'Gratis' : `S/ ${shipping.toFixed(2)}`
+    const msg =
+      `Hola, me gustaría realizar el siguiente pedido 🛒\n\n` +
+      `${lines}\n\n` +
+      `Envío: ${envio}\n` +
+      `*Total: S/ ${finalTotal.toFixed(2)}*`
+    window.open(`https://wa.me/51999999999?text=${encodeURIComponent(msg)}`, '_blank')
+  }
 
   return (
     <div className="cart">
@@ -106,7 +119,7 @@ export default function CartPage() {
           <span>S/ {finalTotal.toFixed(2)}</span>
         </div>
 
-        <button className="cart__checkout">
+        <button className="cart__checkout" onClick={handleCheckout}>
           Proceder al pago
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polyline points="9 18 15 12 9 6"/>

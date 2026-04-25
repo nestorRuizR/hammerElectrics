@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CATEGORIES } from '../../services/products'
-import { fetchProducts, deleteProduct, API_BASE } from '../../services/api'
+import { fetchProducts, deleteProduct } from '../../services/api'
 import './AdminPage.css'
 
 export default function AdminPage() {
@@ -21,7 +21,7 @@ export default function AdminPage() {
   const handleDelete = async (product) => {
     if (!window.confirm(`¿Eliminar "${product.name}"? Esta acción no se puede deshacer.`)) return
     try {
-      await deleteProduct(product.id)
+      await deleteProduct(product.id, product.image)
       setProducts(ps => ps.filter(p => p.id !== product.id))
     } catch (err) {
       alert('Error al eliminar: ' + err.message)
@@ -46,7 +46,7 @@ export default function AdminPage() {
 
       {error && (
         <div className="admin__error">
-          ⚠ {error} — ¿Está corriendo el servidor? <button onClick={load}>Reintentar</button>
+          ⚠ {error} — Verifica las variables de entorno de Supabase. <button onClick={load}>Reintentar</button>
         </div>
       )}
 
@@ -80,7 +80,7 @@ export default function AdminPage() {
                     <td>
                       <div className="admin__thumb">
                         {p.image
-                          ? <img src={`${API_BASE}${p.image}`} alt={p.name} />
+                          ? <img src={p.image} alt={p.name} />
                           : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5">
                               <rect x="3" y="3" width="18" height="18" rx="2"/>
                               <circle cx="8.5" cy="8.5" r="1.5"/>
